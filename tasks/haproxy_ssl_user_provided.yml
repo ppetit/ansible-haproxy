@@ -51,3 +51,16 @@
     - regen pem
   tags:
     - haproxy-ssl
+
+- name: Drop user provided certificate file
+  copy:
+    src: "{{ haproxy_user_ssl_pem }}"
+    dest: "{{ haproxy_ssl_pem }}"
+    owner: "root"
+    group: "root"
+    mode: "0644"
+  when: haproxy_user_ssl_pem is defined
+  notify:
+    - Reload haproxy
+  tags:
+    - haproxy-ssl
