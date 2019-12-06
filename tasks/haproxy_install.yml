@@ -47,12 +47,14 @@
     src: "{{ haproxy_hatop_download_path }}/{{ haproxy_hatop_download_url | basename }}"
     remote_src: "{{ (haproxy_hatop_downloader == 'deployment-host') | ternary('no', 'yes') }}"
     dest: "/opt"
+  when: haproxy_extra_packages_download | bool
 
 - name: Install HATop
   command: "install -m 755 bin/hatop /usr/local/bin"
   args:
     chdir: "/opt/{{ haproxy_hatop_download_url | basename | replace('.tar.gz', '') }}"
     creates: "/usr/local/bin/hatop"
+  when: haproxy_extra_packages_download | bool
 
 - include_tasks: haproxy_apparmor.yml
   when: ansible_pkg_mgr == 'zypper'
