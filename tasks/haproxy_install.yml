@@ -40,6 +40,7 @@
   retries: 3
   delay: 10
   delegate_to: "{{ (haproxy_hatop_downloader == 'deployment-host') | ternary('localhost', inventory_hostname) }}"
+  when: haproxy_extra_packages_download | bool
 
 - name: Unarchive HATop
   unarchive:
