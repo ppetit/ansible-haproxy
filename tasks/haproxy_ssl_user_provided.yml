@@ -52,7 +52,7 @@
   tags:
     - haproxy-ssl
 
-- name: Drop user provided certificate file
+- name: Drop user provided ssl certificate (pem file)
   copy:
     src: "{{ haproxy_user_ssl_pem }}"
     dest: "{{ haproxy_ssl_pem }}"
